@@ -1,8 +1,9 @@
 import { config } from "dotenv";
 import "express-async-errors";
-import express from "express";
 config();
+import express from "express";
 import { db } from "./db/db.js";
+import { router as requeryRouter } from "./routes/requery.route.js";
 
 const app = express();
 const port = 3000;
@@ -12,10 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get("/", async (req, res) => {
-  const result = await db.query("SELECT * FROM tms.transaction_record LIMIT 1");
-  res.send(result);
-});
+app.use("/", requeryRouter);
 
 //Server
 
