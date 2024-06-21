@@ -6,6 +6,7 @@ import { router as requeryRouter } from "./routes/requery.route.js";
 import { notFound } from "./middleware/notFound.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { ipFilter } from "./middleware/ipFilter.js";
+import { headerAuth } from "./middleware/headerAuth.js";
 
 const app = express();
 const port = 3000;
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use(ipFilter);
+app.use(headerAuth);
 app.use(requeryRouter);
 app.use(notFound);
 app.use(errorHandler);
