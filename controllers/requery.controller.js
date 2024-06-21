@@ -14,7 +14,7 @@ export const requery = async (req, res) => {
   const { year, month, day, hours, minutes, seconds } =
     separateDateComponents(date);
   const query = await db.query(
-    `SELECT * FROM tms.transaction_record WHERE YEAR(transaction_time)=${year} AND MONTH(transaction_time)=${month} AND DAY(transaction_time)=${day} AND HOUR(transaction_time)=${hours} AND MINUTE(transaction_time)=${minutes} AND SECOND(transaction_time)=${seconds} AND response_amount=${amount} AND retrieval_reference_number=${rrn}`,
+    `SELECT * FROM tms.transaction_record WHERE YEAR(transaction_time)=${year} AND MONTH(transaction_time)=${month} AND DAY(transaction_time)=${day} AND HOUR(transaction_time)=${hours} AND MINUTE(transaction_time)=${minutes} AND SECOND(transaction_time)=${seconds} AND stan=${stan} AND response_amount=${amount} AND retrieval_reference_number=${rrn}`,
   );
   const result = {
     stan: query[0][0].stan,
