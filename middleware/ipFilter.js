@@ -18,6 +18,9 @@ export const ipFilter = (req, res, next) => {
   if (allowedIPs.includes(clientIP)) {
     next();
   } else {
-    throw new CustomAPIError("Access Denied", 403);
+    throw new CustomAPIError(
+      "Access Denied: Your IP address does not have permission to access this route.",
+      403,
+    );
   }
 };
