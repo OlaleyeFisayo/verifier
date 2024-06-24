@@ -1,5 +1,5 @@
 import joi from "joi";
-const { date, number, string } = joi.types();
+const { number, string } = joi.types();
 
 export const RequerySchema = joi.object({
   // date: date,

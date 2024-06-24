@@ -10,23 +10,23 @@ export const requery = async (req, res) => {
     const message = error.details[0].message;
     throw new CustomAPIError(message, 400);
   }
-  const { rrn } = value;
 
-  const query = await db.query(
-    `SELECT stan, transaction_date, retrieval_reference_number, response_code, masked_pan, response_amount, terminal_id, emv_data_request, from_account_identification FROM tms.transaction_record WHERE retrieval_reference_number=${rrn}`,
+  const [query] = await db.query(
+    `SELECT stan, transaction_date, retrieval_reference_number, response_code, masked_pan, response_amount, terminal_id, emv_data_request, from_account_identification FROM tms.transaction_record WHERE retrieval_reference_number='${value.rrn}'`,
   );
-
-  const encrytedEmv = encrypt(query[0][0].emv_data_request);
+  
+  const queryObject = query[0]
+  const encrytedEmv = encrypt(queryObject.emv_data_request);
   const result = {
-    stan: query[0][0].stan,
-    transaction_date: query[0][0].transaction_date,
-    retrieval_reference_number: query[0][0].retrieval_reference_number,
-    response_code: query[0][0].response_code,
-    masked_pan: query[0][0].masked_pan,
-    response_amount: query[0][0].response_amount,
-    terminal_id: query[0][0].terminal_id,
+    stan: queryObject.stan,
+    transaction_date: queryObject.transaction_date,
+    retrieval_reference_number: queryObject.retrieval_reference_number,
+    response_code: queryObject.response_code,
+    masked_pan: queryObject.masked_pan,
+    response_amount: queryObject.response_amount,
+    terminal_id: queryObject.terminal_id,
     emv_data_request: encrytedEmv,
-    from_account_identification: query[0][0].from_account_identification,
+    from_account_identification: queryObject.from_account_identification,
   };
   res.status(200).json(result);
 };
