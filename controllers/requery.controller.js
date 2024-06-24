@@ -14,8 +14,8 @@ export const requery = async (req, res) => {
   const [query] = await db.query(
     `SELECT stan, transaction_date, retrieval_reference_number, response_code, masked_pan, response_amount, terminal_id, emv_data_request, from_account_identification FROM tms.transaction_record WHERE retrieval_reference_number='${value.rrn}'`,
   );
-  
-  const queryObject = query[0]
+
+  const queryObject = query[0];
   const encrytedEmv = encrypt(queryObject.emv_data_request);
   const result = {
     stan: queryObject.stan,

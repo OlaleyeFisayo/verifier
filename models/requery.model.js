@@ -1,10 +1,10 @@
 import joi from "joi";
-const { number, string } = joi.types();
+const { string } = joi.types();
 
 export const RequerySchema = joi.object({
   // date: date,
   // stan: number,
-  rrn: number,
+  rrn: string,
   // amount: number,
 });
 
